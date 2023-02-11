@@ -19,14 +19,9 @@ class Post(models.Model):
 
 
 class Group(models.Model):
-
-    # название группы
     title = models.CharField(max_length=200)
-    # например, для группы любителей котиков slug будет равен cats: group/cats
     slug = models.SlugField(unique=True)
-    # текст, описывающий сообщество
     description = models.TextField()
 
-    # чтобы при печати объекта модели Group выводилось поле title
     def __str__(self) -> str:
         return self.title

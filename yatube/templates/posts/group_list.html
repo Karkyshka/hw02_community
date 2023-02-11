@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-    <main>
-      {% block content %} 
+{% block title %} Записи группы {{ group.title }}{% endblock %}
+    {% block content %} 
       <div class="container">
-        <h1>Последние посты</h1>
         <article>
           {% for post in posts %}
           <ul>
@@ -17,12 +16,6 @@
           <p>{{ post.text|linebreaksbr }}</p>         
         </article>
         {% if not forloop.last %}<hr>{% endif %}
-        <!-- под последним постом нет линии -->
         {% endfor %}
       </div> 
       {%endblock%}   
-    </main>
-
-
-
-
