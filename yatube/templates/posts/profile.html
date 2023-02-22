@@ -60,12 +60,13 @@
         <a href="<!-- -->">все записи группы</a>        
         <hr>
 
-        {% for post in posts %}
+        {% for post in page_obj %}
         <h3>{{ author.first_name }} {{ author.last_name }}</h3>
         <hr>
         <p>{{ post.text }}</p>
         
-    {% endfor %}
+        {% endfor %}
+    
         <!-- Остальные посты. после последнего нет черты -->
         <!-- Здесь подключён паджинатор -->  
        {% include 'posts/includes/paginator.html' %}

@@ -36,7 +36,7 @@ def profile(request, username):
     page_obj = paginator.get_page(page_number)
     context = {
         'author': author,
-        'username': username,
+        #'username': username,
         'posts': posts,
         'page_obj': page_obj
     }
