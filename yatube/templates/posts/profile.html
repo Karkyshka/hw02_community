@@ -3,7 +3,6 @@
   <head>  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Дружное сообщество{% endblock %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'img/fav/favicon.ico' %}">
     <link 
@@ -19,22 +18,26 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     
- 
-      <!-- Лев Толстой-->
-    <title>Профайл пользователя {{author}}</title>  
+    <title>{% block title %} Профайл пользователя 
+    {{ author.first_name }} {{ author.last_name }} {% endblock %}    
+    </title>
   </head>
+
+
   <body>       
     <header>
       {% include 'posts/includes/header.html' %}     
     </header>
     <main>
       <div class="container py-5">        
-        <h1>Все посты пользователя {{author}} <!--Лев Толстой--> </h1> 
-        <h3>Всего постов: <!-- --> </h3>   
+        <h1>Все посты пользователя {{ author.first_name }} 
+          {{ author.last_name }}
+        </h1> 
+        <h3>Всего постов: {{ author.posts.count }} </h3>   
         <article>
           <ul>
             <li>
-              Автор: {{author}} <!--Лев Толстой-->
+              Автор: {{ author.first_name }} {{ author.last_name }}
               <a href="<!-- -->">все посты пользователя</a>
             </li>
             <li>
@@ -42,10 +45,6 @@
             </li>
           </ul>
           <p>
-            {{ post.author.username}}
-            {{ post.author.get_full_name }}
-            {{ author.username }} 
-          <!--
             [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
             Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
             Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
@@ -55,15 +54,21 @@
             хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
             Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
             жалко бросить штабъ. Здоровье кажется (2) лучше. 
-          --> 
           </p>
           <a href="<!-- -->">подробная информация </a>
         </article>       
         <a href="<!-- -->">все записи группы</a>        
         <hr>
+
+        {% for post in posts %}
+        <h3>{{ author.first_name }} {{ author.last_name }}</h3>
+        <hr>
+        <p>{{ post.text }}</p>
+        
+    {% endfor %}
         <!-- Остальные посты. после последнего нет черты -->
-        <!-- Здесь подключён паджинатор -->
-        {% include 'posts/includes/paginator.html' %}  
+        <!-- Здесь подключён паджинатор -->  
+       {% include 'posts/includes/paginator.html' %}
       </div>
     </main>
     <footer class="border-top text-center py-3">
