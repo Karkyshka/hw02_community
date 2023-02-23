@@ -48,11 +48,13 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     #author = Post.objects.all()
     #group = Group.objects.all()
+    #posts = Post.objects.all()
 
     post_id = Post.objects.filter(author__posts=post_id)
     context = { 'post_id': post_id,
                 'author': post.author,
                 'post': post,
+                
                 #'group': group
                 #'author': User
 

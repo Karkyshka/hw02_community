@@ -3,7 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails') 
 
 
 SECRET_KEY = 'v&26l##u+n3qcu7(pbq-wrcb9g)=gh4av!q3#+u2oi%ljvaono'
@@ -41,7 +41,7 @@ ROOT_URLCONF = 'yatube.urls'
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'posts:index'
-LOGOUT_REDIRECT_URL = 'posts:index'
+#LOGOUT_REDIRECT_URL = 'posts:index'
 
 TEMPLATES = [
     {
