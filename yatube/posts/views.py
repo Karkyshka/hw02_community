@@ -43,10 +43,18 @@ def profile(request, username):
     return render(request, 'posts/profile.html', context)
 
 
+
 def post_detail(request, post_id):
-    post_id = Post.objects.filter(pk=post_id)
-    # Здесь код запроса к модели и создание словаря контекста
-    context = {
-        'post_id': post_id
-    }
+    post = get_object_or_404(Post, pk=post_id)
+    #author = Post.objects.all()
+    #group = Group.objects.all()
+
+    post_id = Post.objects.filter(author__posts=post_id)
+    context = { 'post_id': post_id,
+                'author': post.author,
+                'post': post,
+                #'group': group
+                #'author': User
+
+        }
     return render(request, 'posts/post_detail.html', context)

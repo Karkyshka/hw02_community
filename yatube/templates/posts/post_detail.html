@@ -1,40 +1,65 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
 <html lang="ru">
-  <head>
-    <!-- Подключены иконки, стили и заполенены мета теги -->
-    <title>Пост <!-- Первые 30 букв поста --></title>
+  
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="icon" href="{% static 'img/fav/favicon.ico' %}">
+    <link 
+      rel="apple-touch-icon" sizes="180x180" 
+      href="img/fav/apple-touch-icon.png">
+    <link 
+      rel="icon" type="image/png" sizes="32x32"
+      href="img/fav/favicon-32x32.png">
+    <link 
+      rel="icon" type="image/png" sizes="16x16"
+      href="img/fav/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>
+      {% block title %}
+        Пост {{ post.text|truncatechars:30 }} 
+      {% endblock %} </title>
   </head>
+  
   <body>
     <header>
-      <nav class="navbar navbar-light" style="background-color: lightskyblue">
-        <div class="container">
-          <a class="navbar-brand" href="/">
-            <img src="/static/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            <span style="color:red">Ya</span>tube
-          </a>
-        </div>
-      </nav>      
+      {% include 'posts/includes/header.html' %} 
     </header>
     <main>
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Дата публикации: <!-- 31 июля 1854 --> 
+              Дата публикации: {{ post.pub_date|date:"d E Y" }} 
             </li>
-            <!-- если у поста есть группа -->   
+                            
+
+            {% if post.group %}    
             <li class="list-group-item">
-              Группа: <!-- Название группы -->
-              <a href="<!-- -->">
+              Группа: {{ post.group.description }} <!-- Название группы -->
+              <a href="{% url 'posts:group_list' post.group.slug %}">
                 все записи группы
               </a>
             </li>
+            {% endif %}
+
+
             <li class="list-group-item">
-              Автор: <!--Лев Толстой-->
+              Автор: 
+              
+              {{ post.author.first_name|default:post.author.username }} 
+              {{ author.last_name }}
             </li>
+            
+            
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Всего постов автора:  <span ><!-- --></span>
+              Всего постов автора:
+              <span >
+                {{ author.posts.count }}
+              </span>
             </li>
             <li class="list-group-item">
               <a href="<!-- -->">
@@ -45,23 +70,13 @@
         </aside>
         <article class="col-12 col-md-9">
           <p>
-           <!--
-            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
-            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
-            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
-            мъ здоровьи.
-            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за 
-            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ, 
-            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
-            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
-            жалко бросить штабъ. Здоровье кажется (2) лучше. 
-           --> 
+            <p>{{ post.text }}</p>
           </p>
         </article>
       </div> 
     </main>
     <footer class="border-top text-center py-3">
-      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>
+      {% include 'posts/includes/footer.html' %} 
     </footer>
   </body>
 </html>
