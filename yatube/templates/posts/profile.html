@@ -29,44 +29,30 @@
       {% include 'posts/includes/header.html' %}     
     </header>
     <main>
+
+
       <div class="container py-5">        
         <h1>Все посты пользователя 
           {{ author.first_name }} {{ author.last_name }}
         </h1> 
-        <h3>Всего постов: {{ author.posts.count }} </h3>   
+          <h3>Всего постов: {{ author.posts.count }} </h3>   
         <article>
-          <ul>
-
+          {% for post in page_obj %}
+          <hr>      
             <li>
-              Дата публикации: {{ post.pub_date|date:"d E Y" }}
+                Дата публикации: {{ post.pub_date|date:"d E Y" }}
             </li>
-          </ul>
-          <p>
-            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
-            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
-            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
-            мъ здоровьи.
-            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за 
-            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ, 
-            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
-            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
-            жалко бросить штабъ. Здоровье кажется (2) лучше. 
-          </p>
-          <a href="{<!-- % url 'posts:post_detail' %-->}">
-            подробная информация </a>
+        <br>
+          <p>{{ post.text }}</p>
+           
+            <a href="{% url 'posts:post_detail' post.id %}">
+              подробная информация </a>
+          
         </article>       
-        <a href="<!-- -->">все записи группы</a>        
-        <hr>
-
-        {% for post in page_obj %}
-        <h3>{{ author.first_name }} {{ author.last_name }}</h3>
-        <hr>
-        <p>{{ post.text }}</p>
-        
-        {% endfor %}
-    
-        <!-- Остальные посты. после последнего нет черты -->
-        <!-- Здесь подключён паджинатор -->  
+        <a href="{% url 'posts:group_list' post.group.slug %}">
+        <p>
+          все записи группы</a>        
+      {% endfor %}
        {% include 'posts/includes/paginator.html' %}
       </div>
     </main>
