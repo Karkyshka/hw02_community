@@ -15,7 +15,11 @@
               Дата публикации: {{ post.pub_date|date:"d E Y" }}
             </li>
           </ul>      
-          <p>{{ post.text|linebreaksbr }}</p>         
+          <p>{{ post.text|linebreaksbr }}</p>  
+          <br>
+          <a href="{% url 'posts:profile' post.author %}">
+            все посты пользователя
+          </a>       
         </article>
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
