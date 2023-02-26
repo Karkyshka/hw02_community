@@ -48,8 +48,10 @@
             <a href="{% url 'posts:post_detail' post.id %}">
               подробная информация </a>
           
-        </article>       
+        </article>  
+        {% if post.group %}      
         <a href="{% url 'posts:group_list' post.group.slug %}">
+        {% endif %} 
         <p>
           все записи группы</a>        
       {% endfor %}
